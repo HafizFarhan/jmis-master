@@ -1,0 +1,143 @@
+﻿@model MTC.JMICS.Models.DB.COI
+
+<div class="modal fade dragModal" id="COIActivationReportModal" role="dialog" aria-labelledby="COIActivationReportModalLabel" aria-hidden="true">
+    <div class="drag-modal-dialog modal-dialog-form modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header drag-modal-header">
+                <h5 class="modal-title" id="COIActivationReportModalLabel">COI Activation Report</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body modal-body-custom">
+
+                <form method="post" id="frmCOIActivation">
+                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                    <input id="hdnSubscriberId" type="hidden" value="@Model.SubscriberId" />
+                    <input id="hdnActionAddresse" type="hidden" value="@Model.ActionAddressee" />
+                    <input id="hdnInfoAddresse" type="hidden" value="@Model.InformationAddressee" />
+                    <input id="hdnCOIType" type="hidden" value="@Model.COITypeId" />
+                    <input id="hdnThreat" type="hidden" value="@Model.NatureOfThreatId" />
+                    <input type="hidden" asp-for="PRId" />
+
+                    <div class="kt-scroll kt-scroll-custom" data-scroll="true" data-height="auto">
+
+                        <div class="form-group row">
+                            <div class="col">
+                                <label class="col-form-label">Initiator:</label>
+                                <select id="drpSubsList" class="form-control" asp-for="SubscriberId"></select>
+                            </div>
+                            <div class="col">
+                                <label>Observation Date:</label>
+                                <input asp-for="LastObservationDatetime" type="date" class="form-control" placeholder="Select date" />
+                                <span asp-validation-for="LastObservationDatetime" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="multiselect col-lg-6">
+                                <label>Action Addressee:</label>
+                                <div class="col-lg-12 p-0">
+                                    <select id="drpMultiAct" class="form-control" asp-for="ActionAddresseeArray" multiple="multiple"></select>
+                                    <span asp-validation-for="ActionAddresseeArray" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="multiselect col-lg-6">
+                                <label>Info Addressee:</label>
+                                <div class="col-lg-12 p-0">
+                                    <select id="drpMultiInfo" class="form-control" asp-for="InformationAddresseeArray" multiple="multiple"></select>
+                                    <span asp-validation-for="InformationAddresseeArray" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-6">
+                                <label>COI Type:</label>
+                                <select id="drpCOITypes" class="form-control" asp-for="COITypeId"></select>
+                                <span asp-validation-for="COITypeId" class="text-danger"></span>
+                            </div>
+                            <div class="col-lg-6">
+                                <label>Nature Of Threat:</label>
+                                <select id="drpNatureOfThreats" class="form-control" asp-for="NatureOfThreatId"></select>
+                                <span asp-validation-for="NatureOfThreatId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-6">
+                                <label>Latitude:</label>
+                                <input asp-for="Latitude" type="text" class="form-control" id="lat">
+                                <span asp-validation-for="Latitude" class="text-danger"></span>
+                            </div>
+                            <div class="col-lg-6">
+                                <label>Longitude:</label>
+                                <input asp-for="Longitude" type="text" class="form-control" id="lon">
+                                <span asp-validation-for="Longitude" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row coiActReportTrackFields">
+                            <div class="col-4">
+                                <label>MMSI:</label>
+                                <input asp-for="MMSI" type="text" class="form-control" id="mmsi">
+                                <span asp-validation-for="MMSI" class="text-danger"></span>
+                            </div>
+                            <div class="col-4">
+                                <label>Course:</label>
+                                <input asp-for="Course" type="text" class="form-control" id="course">
+                                <span asp-validation-for="Course" class="text-danger"></span>
+                            </div>
+                            <div class="col-4">
+                                <label>Speed:</label>
+                                <input asp-for="Speed" type="text" class="form-control" id="speed">
+                                <span asp-validation-for="Speed" class="text-danger"></span>
+                            </div>                           
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-12">
+                                <textarea asp-for="Remarks" class="form-control"></textarea>
+                                <span asp-validation-for="Remarks" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>*@
+                        <button type="submit" class="btn btn-primary">Generate</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--begin::Page Scripts(used by this page) -->
+<script src="~/Matronic/assets/js/demo1/scripts.bundle.js" type="text/javascript"></script>
+<script src="~/Matronic/assets/js/demo1/pages/crud/forms/widgets/select2.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<!--end::Page Scripts -->
+
+<script>
+    $("#frmCOIActivation").submit(function (event) {
+        enableInputs();
+        let formData = new FormData(this);
+        fetch('Canvas?handler=COI', {
+            method: 'post',
+            body: new URLSearchParams(formData),
+            headers: {
+                RequestVerificationToken:
+                    $('input:hidden[name="__RequestVerificationToken"]').val()
+            }
+        }).then(function (response) {
+            if (response.status === 200) {
+                $('.modal').modal('hide');
+            }
+        });
+        disableInputs();
+        return false;
+        event.preventDefault();
+    });
+</script>

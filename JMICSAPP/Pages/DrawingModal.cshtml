@@ -1,0 +1,376 @@
+﻿@model MTC.JMICS.Models.DB.Drawing
+
+<div class="modal fade dragModal" id="DrawingModal" role="dialog" aria-labelledby="DrawingModalLabel" aria-hidden="true">
+    <div class="drag-modal-dialog modal-dialog-form modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header drag-modal-header">
+                <h5 class="modal-title" id="DrawingModalLabel">Drawing Form</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body modal-body-custom">
+                <form method="post" id="frmDrawing">
+                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                    <div class="kt-scroll kt-scroll-custom" data-scroll="true" data-height="auto">
+
+                        <input id="hdnDrawingSource" asp-for="DrawingSource" type="hidden" />
+
+                        <div class="form-group row">
+                            <div class="col-lg-6">
+                                <label for="shape-type" class="col-form-label">Shape Type:</label>
+                                <select id="shapetype" class="form-control" asp-for="ShapeId"></select>
+                                <span asp-validation-for="ShapeId" class="text-danger"></span>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="drawing-name" class="col-form-label">Drawing Name:</label>
+                                <input type="text" class="form-control" asp-for="DrawingName" id="dname" autocomplete="off">
+                                <span asp-validation-for="DrawingName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-6">
+                                <label for="fill-color" class="col-form-label">Fill Color:</label>
+                                <input type="color" class="form-control" asp-for="DrawingFillColor" id="dfillcol">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="outline-color" class="col-form-label">Outline Color:</label>
+                                <input type="color" class="form-control" asp-for="DrawingOutlineColor" id="doutcol">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col">
+                                <label>Draw Interaction:</label>
+                                <div class="kt-radio-inline">
+                                    <label class="kt-radio kt-radio--solid">
+                                        <input type="radio" name="example_2" checked value="cursor"> Cursor
+                                        <span></span>
+                                    </label>
+                                    <label class="kt-radio kt-radio--solid">
+                                        <input type="radio" name="example_2" value="keyboard"> Keyboard
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="Circle hidden">
+                            <div class="form-group row">
+                                <div class="col">
+                                    <label for="circleRadius" class="col-form-label">Radius:</label>
+                                    <input type="text" class="form-control" asp-for="CircleRadius" autocomplete="off" id="circleRadius" readonly>
+                                    <span asp-validation-for="CircleRadius" class="text-danger"></span>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label for="circleUnit" class="col-form-label">Unit:</label>
+                                    <select id="circleUnit" class="form-control" asp-for="CircleRadiusUnitId"></select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-lg-6">
+                                    <label for="circleLat" class="col-form-label">Center Point Lat:</label>
+                                    <input type="text" class="form-control" asp-for="CircleLatitude" autocomplete="off" id="circleLat" readonly>
+                                    <span asp-validation-for="CircleLatitude" class="text-danger"></span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="circleLon" class="col-form-label">Center Point Lon:</label>
+                                    <input type="text" class="form-control" asp-for="CircleLongitude" autocomplete="off" id="circleLon" readonly>
+                                    <span asp-validation-for="CircleLongitude" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Line hidden">
+                            <div class="form-group row">
+                                <div class="col-lg-6">
+                                    <label for="circleLat" class="col-form-label">Latitude:</label>
+                                    <input type="text" class="form-control" asp-for="CircleLatitude" autocomplete="off" id="Lat1" readonly>
+                                    <span asp-validation-for="CircleLatitude" class="text-danger"></span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="circleLon" class="col-form-label">Longitude:</label>
+                                    <input type="text" class="form-control" asp-for="CircleLongitude" autocomplete="off" id="Lon1" readonly>
+                                    <span asp-validation-for="CircleLongitude" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-lg-6">
+                                    <label for="circleLat" class="col-form-label">Latitude:</label>
+                                    <input type="text" class="form-control" asp-for="CircleLatitude" autocomplete="off" id="Lat2" readonly>
+                                    <span asp-validation-for="CircleLatitude" class="text-danger"></span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="circleLon" class="col-form-label">Longitude:</label>
+                                    <input type="text" class="form-control" asp-for="CircleLongitude" autocomplete="off" id="Lon2" readonly>
+                                    <span asp-validation-for="CircleLongitude" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button id="drawBtn" class="btn btn-primary hidden" onclick="drawCircle($('#circleLon').val(), $('#circleLat').val(), $('#circleRadius').val(), $('#dfillcol').val(), $('#doutcol').val(), $('#dname').val()); return false;">Draw Circle</button>
+                        <button class="btn btn-primary hidden" onclick="drawLine($('#Lon1').val(), $('#Lat1').val(), $('#Lon2').val(), $('#Lat2').val(), $('#doutcol').val(), $('#dname').val()); return false;">Draw Line</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--begin::Page Scripts(used by this page) -->
+<script src="~/Matronic/assets/js/demo1/scripts.bundle.js" type="text/javascript"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<!--end::Page Scripts -->
+
+<script>
+
+    $("#frmDrawing").submit(function (event) {
+        enableInputs();
+        let formData = new FormData(this);
+        fetch('Canvas?handler=Drawing', {
+            method: 'post',
+            body: new URLSearchParams(formData),
+            headers: {
+                RequestVerificationToken:
+                    $('input:hidden[name="__RequestVerificationToken"]').val()
+            }
+        }).then(function (response) {
+            if (response.status === 200) {
+                $('.modal').modal('hide');
+            } 
+        }); 
+        disableInputs();
+        return false;
+        event.preventDefault();
+    });
+
+    shapeType = document.getElementById('shapetype');
+    circleUnitType = document.getElementById('circleUnit');
+    unitValue = "";
+
+    function addInteraction() {
+        value = shapeType.options[shapeType.selectedIndex].text;
+        if (value !== 'Select an option' || value !== null) {
+            var geometryFunction;
+            var maxPoints;
+            if (value === 'Square') {
+                value = 'Circle';
+                geometryFunction = ol.interaction.Draw.createRegularPolygon(4);
+            }
+            if (value === 'Rectangle') {
+                value = 'Circle';
+                geometryFunction = ol.interaction.Draw.createBox();
+            }
+            if (value === 'Line') {
+                value = 'LineString';
+                maxPoints = 2;
+            }
+            if (value === 'Polyline') {
+                value = 'LineString';
+            }
+            draw = new ol.interaction.Draw({
+                source: drawingVectorSource,
+                type: value,
+                geometryFunction: geometryFunction,
+                maxPoints: maxPoints
+            });
+            map.addInteraction(draw);
+        }
+        else {
+            map.removeInteraction(draw);
+        }
+
+        draw.on("drawstart",
+            function (evt) {
+                outcol = document.getElementById('doutcol');
+                outcolval = outcol.value;
+
+                fillcol = document.getElementById('dfillcol');
+                fillcolval = fillcol.value;
+
+                dname = document.getElementById('dname');
+                dnameval = dname.value;
+
+                drawingStyle = new ol.style.Style({
+                    fill: new ol.style.Fill({
+                        color: fillcolval
+                    }),
+                    stroke: new ol.style.Stroke({
+                        color: outcolval,
+                        width: 2
+                    }),
+                    text: new ol.style.Text({
+                        text: dnameval,
+                        font: '15px sens-serif'
+                    })
+                })
+                evt.feature.setStyle(drawingStyle);
+                evt.feature.setProperties({
+                    type: 'drawingFeature',
+                    name: dnameval,
+                    fillColor: fillcolval,
+                    strokeColor: outcolval
+                })
+            });
+
+        draw.on('drawend', function (evt) {
+            value = shapeType.options[shapeType.selectedIndex].text;
+            map.removeInteraction(draw);
+            $(".kt-scroll :input").prop("disabled", true);
+            if (value === 'Circle') {
+                radius = evt.feature.getGeometry().getRadius();
+
+                if (unitValue === 'Km')
+                    radius = radius / 1000;
+                if (unitValue === 'NM')
+                    radius = radius / 1852;
+
+                center = evt.feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326').getCenter();
+                evt.feature.setProperties({
+                    radius: radius,
+                    center: center
+                });
+                cRadius = document.getElementById('circleRadius');
+                cRadius.value = radius.toFixed(3);
+                cRadius.value = radius;
+                dp1Lat = document.getElementById('circleLat');
+                dp1Lat.value = center[1];
+                dp1Lon = document.getElementById('circleLon');
+                dp1Lon.value = center[0];
+            }
+            if (value === 'Line') {
+                coord = evt.feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326').getCoordinates();
+                $('#Lon1').val(coord[0][0]);
+                $('#Lat1').val(coord[0][1]);
+                $('#Lon2').val(coord[1][0]);
+                $('#Lat2').val(coord[1][1]);
+            }
+            var writer = new ol.format.GeoJSON({ featureProjection: 'EPSG:3857' });
+            var hdnDrawingSource = document.getElementById('hdnDrawingSource');
+            hdnDrawingSource.value = writer.writeFeature(evt.feature);
+        });
+    }
+
+    shapeType.onchange = function () {
+        var selectedShapeType = shapeType.options[shapeType.selectedIndex].text;
+        map.removeInteraction(draw);
+        addInteraction();       
+
+        if (selectedShapeType !== 'Select an option') {
+            $('#dname').val(selectedShapeType);
+        }
+        else {          
+            $('#dname').val('');
+            map.removeInteraction(draw);
+        }
+        if (selectedShapeType === 'Circle') {
+            $('.Circle').show();
+        }
+        else {
+            $('.Circle').hide();
+        }
+        if (selectedShapeType === 'Line') {
+            $('.Line').show();
+        }
+        else {
+            $('.Line').hide();
+        }
+    }
+
+    circleUnitType.onchange = function () {       
+        if (circleUnitType.selectedIndex !== -1)
+            unitValue = circleUnitType.options[circleUnitType.selectedIndex].text;
+    }
+
+    $('input[type=radio][name=example_2]').change(function () {
+        if (this.value == 'cursor') {
+            $(".Circle :input").prop("readonly", true);
+            $(".Line :input").prop("readonly", true);
+            $('#drawBtn').hide();
+            map.addInteraction(draw);
+        }
+        else if (this.value == 'keyboard') {
+            $(".Circle :input").prop("readonly", false);
+            $(".Line :input").prop("readonly", false);
+            $('#drawBtn').show();
+            map.removeInteraction(draw);
+        }
+    });
+
+    $('#DrawingModal').on('hidden.bs.modal', function (e) {
+        map.removeInteraction(draw);
+        $(".selected").removeClass("selected");
+    });
+
+    function drawCircle(longitude, latitude, radius, raduisUnitId, fillColor, outlineColor, drawingName) {
+        longitude = parseFloat(longitude);
+        latitude = parseFloat(latitude);
+        radius = parseFloat(radius);
+
+        var radiusInMeters = convertRadiusToMeters(parseInt(raduisUnitId), radius);
+        circleFeature = new ol.Feature({ geometry: new ol.geom.Circle(ol.proj.transform([longitude, latitude], 'EPSG:4326', 'EPSG:3857'), radiusInMeters) });
+
+        drawingFeatureStyle = new ol.style.Style({
+            fill: new ol.style.Fill({
+                color: fillColor
+            }),
+            stroke: new ol.style.Stroke({
+                color: outlineColor,
+                width: 2
+            }),
+            text: new ol.style.Text({
+                text: drawingName
+            })
+        });
+        circleFeature.setStyle(drawingFeatureStyle);
+        drawingVectorSource.addFeature(circleFeature);
+
+        var writer = new ol.format.GeoJSON({ featureProjection: 'EPSG:3857' });
+        var hdnDrawingSource = document.getElementById('hdnDrawingSource');
+        hdnDrawingSource.value = writer.writeFeature(circleFeature);
+    }
+
+    function drawLine(longitude1, latitude1, longitude2, latitude2, outlineColor, drawingName) {
+        longitude1 = parseFloat(longitude1);
+        latitude1 = parseFloat(latitude1);
+        longitude2 = parseFloat(longitude2);
+        latitude2 = parseFloat(latitude2);
+
+        var points = [[longitude1, latitude1],[longitude2, latitude2]];
+
+        for (var i = 0; i < points.length; i++) {
+            points[i] = ol.proj.transform(points[i], 'EPSG:4326', 'EPSG:3857');
+        }
+
+        lineFeature = new ol.Feature({ geometry: new ol.geom.LineString(points) });
+        drawingFeatureStyle = new ol.style.Style({           
+            stroke: new ol.style.Stroke({
+                color: outlineColor,
+                width: 2
+            }),
+            text: new ol.style.Text({
+                text: drawingName
+            })
+        });
+
+        lineFeature.setProperties({
+            type: 'drawingFeature',
+            name: drawingName,
+            strokeColor: outlineColor
+        });
+
+        lineFeature.setStyle(drawingFeatureStyle);
+        drawingVectorSource.addFeature(lineFeature);
+
+        var writer = new ol.format.GeoJSON({ featureProjection: 'EPSG:3857' });
+        var hdnDrawingSource = document.getElementById('hdnDrawingSource');
+        hdnDrawingSource.value = writer.writeFeature(lineFeature);
+        console.log(hdnDrawingSource.value);
+    }
+
+</script>

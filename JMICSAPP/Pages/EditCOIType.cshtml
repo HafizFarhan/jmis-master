@@ -1,0 +1,58 @@
+﻿@model MTC.JMICS.Models.DB.COIType
+
+<div class="modal fade dragModal" id="EditCOITypeModal" role="dialog" aria-labelledby="COITypeModalLabel" aria-hidden="true">
+    <div class="drag-modal-dialog modal-dialog-form modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header drag-modal-header">
+                <h5 class="modal-title" id="COITypeModalLabel">COI Type</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body modal-body-custom">
+                <form method="post" id="frmEditCOIType">
+                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                    <input type="hidden" asp-for="COITypeId" />
+                    <input type="hidden" asp-for="CreatedOn" />
+                    <input type="hidden" asp-for="CreatedBy" />
+                    <input type="hidden" asp-for="LastModifiedOn" />
+                    <input type="hidden" asp-for="LastModifiedBy" />
+                    <div class="kt-scroll kt-scroll-custom" data-scroll="true" data-height="auto">
+                        <div class="form-group row">
+                            <div class="col">
+                                <label for="COITypeName">COI Type Name:</label>
+                                <input type="text" asp-for="COITypeName" class="form-control" id="COITypeName" placeholder="COI Type Name">
+                                <span asp-validation-for="COITypeName" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+<script>
+    $("#frmEditCOIType").submit(function (event) {
+        let formData = new FormData(this);
+        fetch('Canvas?handler=COIType', {
+            method: 'post',
+            body: new URLSearchParams(formData),
+            headers: {
+                RequestVerificationToken:
+                    $('input:hidden[name="__RequestVerificationToken"]').val()
+            }
+        }).then(function (response) {
+            if (response.status === 200) {
+                $('#EditCOITypeModal').modal('hide');
+            }
+        });
+        return false;
+        event.preventDefault();
+    });
+</script>

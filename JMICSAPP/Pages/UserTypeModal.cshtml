@@ -1,0 +1,50 @@
+﻿@model MTC.JMICS.Models.DB.UserType
+
+<div class="modal fade dragModal" id="UserTypeModal" role="dialog" aria-labelledby="UserTypeModalLabel" aria-hidden="true">
+    <div class="drag-modal-dialog modal-dialog-form modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header drag-modal-header">
+                <h5 class="modal-title" id="UserTypeModalLabel">COI Type</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body modal-body-custom">
+                <form method="post" id="frmUserType">
+                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                    <div class="kt-scroll kt-scroll-custom" data-scroll="true" data-height="auto">
+                        <div class="form-group row">
+                            <div class="col">
+                                <label for="UserTypeName" class="col-form-label">User Type Name:</label>
+                                <input type="text" asp-for="UserTypeName" class="form-control" id="UserTypeName" placeholder="User Type Name">
+                                <span asp-validation-for="UserTypeName" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#frmUserType").submit(function (event) {
+        let formData = new FormData(this);
+        fetch('Canvas?handler=UserType', {
+            method: 'post',
+            body: new URLSearchParams(formData),
+            headers: {
+                RequestVerificationToken:
+                    $('input:hidden[name="__RequestVerificationToken"]').val()
+            }
+        }).then(function (response) {
+            if (response.status === 200) {
+                $('#UserTypeModal').modal('hide');
+            }
+        });
+        return false;
+        event.preventDefault();
+    });
+</script>

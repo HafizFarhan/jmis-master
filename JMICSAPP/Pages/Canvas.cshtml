@@ -1,0 +1,751 @@
+﻿@page
+@model JMICSAPP.Pages.CanvasModel
+@using System.Xml;
+@{
+    ViewData["Title"] = "Canvas";
+    Layout = "~/Pages/Shared/_CanvasLayout.cshtml";
+}
+
+<!-- begin:: Page -->
+<!-- begin:: Header Mobile -->
+<div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
+    <div class="kt-header-mobile__logo">
+        <h1>JMIS</h1>
+    </div>
+    <div class="kt-header-mobile__toolbar">
+        <button class="kt-header-mobile__toggler kt-header-mobile__toggler--left" id="kt_aside_mobile_toggler"><span></span></button>
+
+        <button class="kt-header-mobile__toggler" id="kt_header_mobile_toggler"><span></span></button>
+
+        <button class="kt-header-mobile__topbar-toggler" id="kt_header_mobile_topbar_toggler"><i class="flaticon-more"></i></button>
+    </div>
+</div>
+<!-- end:: Header Mobile -->
+<div class="kt-grid kt-grid--hor kt-grid--root">
+    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
+        <!-- begin:: Aside -->
+        <button class="kt-aside-close " id="kt_aside_close_btn"><i class="la la-close"></i></button>
+        <div class="kt-aside  kt-aside--fixed  kt-grid__item kt-grid kt-grid--desktop kt-grid--hor-desktop" id="kt_aside">
+            <!-- begin:: Aside -->
+            <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
+                <div class="kt-aside__brand-logo">
+                    <div>
+                        <h1>JMIS</h1>
+                    </div>
+                </div>
+
+                <div class="kt-aside__brand-tools">
+                    <button class="kt-aside__brand-aside-toggler">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <polygon id="Shape" points="0 0 24 0 24 24 0 24" />
+                                    <path d="M5.29288961,6.70710318 C4.90236532,6.31657888 4.90236532,5.68341391 5.29288961,5.29288961 C5.68341391,4.90236532 6.31657888,4.90236532 6.70710318,5.29288961 L12.7071032,11.2928896 C13.0856821,11.6714686 13.0989277,12.281055 12.7371505,12.675721 L7.23715054,18.675721 C6.86395813,19.08284 6.23139076,19.1103429 5.82427177,18.7371505 C5.41715278,18.3639581 5.38964985,17.7313908 5.76284226,17.3242718 L10.6158586,12.0300721 L5.29288961,6.70710318 Z" id="Path-94" fill="#000000" fill-rule="nonzero" transform="translate(8.999997, 11.999999) scale(-1, 1) translate(-8.999997, -11.999999) " />
+                                    <path d="M10.7071009,15.7071068 C10.3165766,16.0976311 9.68341162,16.0976311 9.29288733,15.7071068 C8.90236304,15.3165825 8.90236304,14.6834175 9.29288733,14.2928932 L15.2928873,8.29289322 C15.6714663,7.91431428 16.2810527,7.90106866 16.6757187,8.26284586 L22.6757187,13.7628459 C23.0828377,14.1360383 23.1103407,14.7686056 22.7371482,15.1757246 C22.3639558,15.5828436 21.7313885,15.6103465 21.3242695,15.2371541 L16.0300699,10.3841378 L10.7071009,15.7071068 Z" id="Path-94" fill="#000000" fill-rule="nonzero" opacity="0.3" transform="translate(15.999997, 11.999999) scale(-1, 1) rotate(-270.000000) translate(-15.999997, -11.999999) " />
+                                </g>
+                            </svg>
+                        </span>
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <polygon id="Shape" points="0 0 24 0 24 24 0 24" />
+                                    <path d="M12.2928955,6.70710318 C11.9023712,6.31657888 11.9023712,5.68341391 12.2928955,5.29288961 C12.6834198,4.90236532 13.3165848,4.90236532 13.7071091,5.29288961 L19.7071091,11.2928896 C20.085688,11.6714686 20.0989336,12.281055 19.7371564,12.675721 L14.2371564,18.675721 C13.863964,19.08284 13.2313966,19.1103429 12.8242777,18.7371505 C12.4171587,18.3639581 12.3896557,17.7313908 12.7628481,17.3242718 L17.6158645,12.0300721 L12.2928955,6.70710318 Z" id="Path-94" fill="#000000" fill-rule="nonzero" />
+                                    <path d="M3.70710678,15.7071068 C3.31658249,16.0976311 2.68341751,16.0976311 2.29289322,15.7071068 C1.90236893,15.3165825 1.90236893,14.6834175 2.29289322,14.2928932 L8.29289322,8.29289322 C8.67147216,7.91431428 9.28105859,7.90106866 9.67572463,8.26284586 L15.6757246,13.7628459 C16.0828436,14.1360383 16.1103465,14.7686056 15.7371541,15.1757246 C15.3639617,15.5828436 14.7313944,15.6103465 14.3242754,15.2371541 L9.03007575,10.3841378 L3.70710678,15.7071068 Z" id="Path-94" fill="#000000" fill-rule="nonzero" opacity="0.3" transform="translate(9.000003, 11.999999) rotate(-270.000000) translate(-9.000003, -11.999999) " />
+                                </g>
+                            </svg>
+                        </span>
+                    </button>
+
+                    <button class="kt-aside__brand-aside-toggler kt-aside__brand-aside-toggler--left" id="kt_aside_toggler">
+                        <span></span>
+                    </button>
+
+                </div>
+            </div>
+            <!-- end:: Aside -->
+            <!-- begin:: Aside Menu -->
+            <div class="kt-aside-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_aside_menu_wrapper">
+                <div id="kt_aside_menu" class="kt-aside-menu m-0" data-ktmenu-vertical="1" data-ktmenu-scroll="1" data-ktmenu-dropdown-timeout="500">
+                    <ul class="kt-menu__nav p-0">
+                        <li class="kt-menu__section ">
+                            <h4 class="kt-menu__section-text">Reports</h4>
+                            <i class="kt-menu__section-icon flaticon-more-v2"></i>
+                        </li>
+                        <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover" onclick="openPRGrid()">
+                            <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                                <span class="kt-menu__link-icon">
+                                    <img src="~/assets/images/PR.png" style="width:25px;" />
+                                </span>
+                                <span class="kt-menu__link-text">Preliminary Reports</span>
+                            </a>
+                        </li>
+                        <li class="kt-menu__item " aria-haspopup="true" onclick="openSRGrid()">
+                            <a class="kt-menu__link ">
+                                <span class="kt-menu__link-icon">
+                                    <img src="~/assets/images/SR.png" style="width:25px;" />
+                                </span>
+                                <span class="kt-menu__link-text">Subsequent Reports</span>
+                            </a>
+                        </li>
+                        <li class="kt-menu__item " aria-haspopup="true" onclick="openCOIGrid()">
+                            <a @*href="~/COIs"*@ class="kt-menu__link ">
+                                <span class="kt-menu__link-icon">
+                                    <img src="~/assets/images/COI.png" style="width:25px;" />
+                                </span>
+                                <span class="kt-menu__link-text">COIs</span>
+                            </a>
+                        </li>
+                        <li class="kt-menu__item " aria-haspopup="true" onclick="openARGrid()">
+                            <a @*href="~/COIs"*@ class="kt-menu__link ">
+                                <span class="kt-menu__link-icon">
+                                    <img src="~/assets/images/AR.png" style="width:25px;" />
+                                </span>
+                                <span class="kt-menu__link-text">Amplifying Reports</span>
+                            </a>
+                        </li>
+                        <li class="kt-menu__item " aria-haspopup="true" onclick="openLostContactGrid()">
+                            <a class="kt-menu__link ">
+                                <span class="kt-menu__link-icon">
+                                    <img src="~/assets/images/LR.png" style="width:25px;" />
+                                </span>
+                                <span class="kt-menu__link-text">Lost Contact Reports</span>
+                            </a>
+                        </li>
+                        <li class="kt-menu__item " aria-haspopup="true" onclick="openDropContactGrid()">
+                            <a class="kt-menu__link ">
+                                <span class="kt-menu__link-icon">
+                                    <img src="~/assets/images/DR.png" style="width:25px;" />
+                                </span>
+                                <span class="kt-menu__link-text">Drop Info Sharing Reports</span>
+                            </a>
+                        </li>
+                        <li class="kt-menu__item " aria-haspopup="true" onclick="openAARGrid()">
+                            <a @*href="~/COIs"*@ class="kt-menu__link ">
+                                <span class="kt-menu__link-icon">
+                                    <img src="~/assets/images/AAR.png" style="width:25px;" />
+                                </span>
+                                <span class="kt-menu__link-text">After Action Reports</span>
+                            </a>
+                        </li>
+
+                        <li class="kt-menu__section ">
+                            <h4 class="kt-menu__section-text">Information</h4>
+                            <i class="kt-menu__section-icon flaticon-more-v2"></i>
+                        </li>
+
+                        <li class="kt-menu__item " aria-haspopup="true" onclick="openTemplateGrid()">
+                            <a @*href="~/COIs"*@ class="kt-menu__link ">
+                                <span class="kt-menu__link-icon">
+                                    <img src="~/assets/images/TM.png" style="width:25px;" />
+                                </span>
+                                <span class="kt-menu__link-text">Templates</span>
+                            </a>
+                        </li>
+
+                        <li class="kt-menu__item " aria-haspopup="true" onclick="openNotesGrid()">
+                            <a @*href="~/COIs"*@ class="kt-menu__link ">
+                                <span class="kt-menu__link-icon">
+                                    <img src="~/assets/images/UN.png" style="width:25px;" />
+                                </span>
+                                <span class="kt-menu__link-text">User Notes</span>
+                            </a>
+                        </li>
+
+                        @if (User.IsInRole("ADMIN"))
+                        {
+                            <li class="kt-menu__section ">
+                                <h4 class="kt-menu__section-text">AAAS</h4>
+                                <i class="kt-menu__section-icon flaticon-more-v2"></i>
+                            </li>
+
+                            <li class="kt-menu__item " aria-haspopup="true" onclick="openIncidentGrid()">
+                                <a class="kt-menu__link ">
+                                    <span class="kt-menu__link-icon">
+                                        <img src="~/assets/images/IR.png" style="width:25px;" />
+                                    </span>
+                                    <span class="kt-menu__link-text">Incidents</span>
+                                </a>
+                            </li>
+                            <li class="kt-menu__item " aria-haspopup="true" onclick="openSOSGrid()">
+                                <a class="kt-menu__link ">
+                                    <span class="kt-menu__link-icon">
+                                        <img src="~/assets/images/SOS.png" style="width:25px;" />
+                                    </span>
+                                    <span class="kt-menu__link-text">SOS</span>
+                                </a>
+                            </li>
+
+                        }
+
+                        @if (User.IsInRole("ADMIN"))
+                        {
+                            <li class="kt-menu__section ">
+                                <h4 class="kt-menu__section-text">Settings</h4>
+                                <i class="kt-menu__section-icon flaticon-more-v2"></i>
+                            </li>
+                            <li class="kt-menu__item " aria-haspopup="true" onclick="openStakeholderGrid()">
+                                <a class="kt-menu__link ">
+                                    <span class="kt-menu__link-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect id="bound" x="0" y="0" width="24" height="24" />
+                                                <path d="M2.56066017,10.6819805 L4.68198052,8.56066017 C5.26776695,7.97487373 6.21751442,7.97487373 6.80330086,8.56066017 L8.9246212,10.6819805 C9.51040764,11.267767 9.51040764,12.2175144 8.9246212,12.8033009 L6.80330086,14.9246212 C6.21751442,15.5104076 5.26776695,15.5104076 4.68198052,14.9246212 L2.56066017,12.8033009 C1.97487373,12.2175144 1.97487373,11.267767 2.56066017,10.6819805 Z M14.5606602,10.6819805 L16.6819805,8.56066017 C17.267767,7.97487373 18.2175144,7.97487373 18.8033009,8.56066017 L20.9246212,10.6819805 C21.5104076,11.267767 21.5104076,12.2175144 20.9246212,12.8033009 L18.8033009,14.9246212 C18.2175144,15.5104076 17.267767,15.5104076 16.6819805,14.9246212 L14.5606602,12.8033009 C13.9748737,12.2175144 13.9748737,11.267767 14.5606602,10.6819805 Z" id="Combined-Shape" fill="#000000" opacity="1" />
+                                                <path d="M8.56066017,16.6819805 L10.6819805,14.5606602 C11.267767,13.9748737 12.2175144,13.9748737 12.8033009,14.5606602 L14.9246212,16.6819805 C15.5104076,17.267767 15.5104076,18.2175144 14.9246212,18.8033009 L12.8033009,20.9246212 C12.2175144,21.5104076 11.267767,21.5104076 10.6819805,20.9246212 L8.56066017,18.8033009 C7.97487373,18.2175144 7.97487373,17.267767 8.56066017,16.6819805 Z M8.56066017,4.68198052 L10.6819805,2.56066017 C11.267767,1.97487373 12.2175144,1.97487373 12.8033009,2.56066017 L14.9246212,4.68198052 C15.5104076,5.26776695 15.5104076,6.21751442 14.9246212,6.80330086 L12.8033009,8.9246212 C12.2175144,9.51040764 11.267767,9.51040764 10.6819805,8.9246212 L8.56066017,6.80330086 C7.97487373,6.21751442 7.97487373,5.26776695 8.56066017,4.68198052 Z" id="Combined-Shape" fill="#000000" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <span class="kt-menu__link-text">Stakeholders</span>
+                                </a>
+                            </li>
+
+                            <li class="kt-menu__item " aria-haspopup="true" onclick="openUserGrid()">
+                                <a class="kt-menu__link ">
+                                    <span class="kt-menu__link-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <polygon id="Shape" points="0 0 24 0 24 24 0 24" />
+                                                <path d="M12,11 C9.790861,11 8,9.209139 8,7 C8,4.790861 9.790861,3 12,3 C14.209139,3 16,4.790861 16,7 C16,9.209139 14.209139,11 12,11 Z" id="Mask" fill="#000000" fill-rule="nonzero" opacity="1" />
+                                                <path d="M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z" id="Mask-Copy" fill="#000000" fill-rule="nonzero" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <span class="kt-menu__link-text">Users</span>
+                                </a>
+                            </li>
+
+                            <li class="kt-menu__item " aria-haspopup="true" onclick="openUserTypeGrid()">
+                                <a class="kt-menu__link ">
+                                    <span class="kt-menu__link-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect id="bound" x="0" y="0" width="24" height="24" />
+                                                <path d="M10.5,5 L19.5,5 C20.3284271,5 21,5.67157288 21,6.5 C21,7.32842712 20.3284271,8 19.5,8 L10.5,8 C9.67157288,8 9,7.32842712 9,6.5 C9,5.67157288 9.67157288,5 10.5,5 Z M10.5,10 L19.5,10 C20.3284271,10 21,10.6715729 21,11.5 C21,12.3284271 20.3284271,13 19.5,13 L10.5,13 C9.67157288,13 9,12.3284271 9,11.5 C9,10.6715729 9.67157288,10 10.5,10 Z M10.5,15 L19.5,15 C20.3284271,15 21,15.6715729 21,16.5 C21,17.3284271 20.3284271,18 19.5,18 L10.5,18 C9.67157288,18 9,17.3284271 9,16.5 C9,15.6715729 9.67157288,15 10.5,15 Z" id="Combined-Shape" fill="#000000" />
+                                                <path d="M5.5,8 C4.67157288,8 4,7.32842712 4,6.5 C4,5.67157288 4.67157288,5 5.5,5 C6.32842712,5 7,5.67157288 7,6.5 C7,7.32842712 6.32842712,8 5.5,8 Z M5.5,13 C4.67157288,13 4,12.3284271 4,11.5 C4,10.6715729 4.67157288,10 5.5,10 C6.32842712,10 7,10.6715729 7,11.5 C7,12.3284271 6.32842712,13 5.5,13 Z M5.5,18 C4.67157288,18 4,17.3284271 4,16.5 C4,15.6715729 4.67157288,15 5.5,15 C6.32842712,15 7,15.6715729 7,16.5 C7,17.3284271 6.32842712,18 5.5,18 Z" id="Combined-Shape" fill="#000000" opacity="1" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <span class="kt-menu__link-text">User Types</span>
+                                </a>
+                            </li>
+
+                            <li class="kt-menu__item " aria-haspopup="true" onclick="openNewsFeedTypeGrid()">
+                                <a class="kt-menu__link ">
+                                    <span class="kt-menu__link-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect id="bound" x="0" y="0" width="24" height="24" />
+                                                <path d="M10.5,5 L19.5,5 C20.3284271,5 21,5.67157288 21,6.5 C21,7.32842712 20.3284271,8 19.5,8 L10.5,8 C9.67157288,8 9,7.32842712 9,6.5 C9,5.67157288 9.67157288,5 10.5,5 Z M10.5,10 L19.5,10 C20.3284271,10 21,10.6715729 21,11.5 C21,12.3284271 20.3284271,13 19.5,13 L10.5,13 C9.67157288,13 9,12.3284271 9,11.5 C9,10.6715729 9.67157288,10 10.5,10 Z M10.5,15 L19.5,15 C20.3284271,15 21,15.6715729 21,16.5 C21,17.3284271 20.3284271,18 19.5,18 L10.5,18 C9.67157288,18 9,17.3284271 9,16.5 C9,15.6715729 9.67157288,15 10.5,15 Z" id="Combined-Shape" fill="#000000" />
+                                                <path d="M5.5,8 C4.67157288,8 4,7.32842712 4,6.5 C4,5.67157288 4.67157288,5 5.5,5 C6.32842712,5 7,5.67157288 7,6.5 C7,7.32842712 6.32842712,8 5.5,8 Z M5.5,13 C4.67157288,13 4,12.3284271 4,11.5 C4,10.6715729 4.67157288,10 5.5,10 C6.32842712,10 7,10.6715729 7,11.5 C7,12.3284271 6.32842712,13 5.5,13 Z M5.5,18 C4.67157288,18 4,17.3284271 4,16.5 C4,15.6715729 4.67157288,15 5.5,15 C6.32842712,15 7,15.6715729 7,16.5 C7,17.3284271 6.32842712,18 5.5,18 Z" id="Combined-Shape" fill="#000000" opacity="1" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <span class="kt-menu__link-text">News Feed Types</span>
+                                </a>
+                            </li>
+
+                            <li class="kt-menu__item " aria-haspopup="true" onclick="openCOIStatusGrid()">
+                                <a class="kt-menu__link ">
+                                    <span class="kt-menu__link-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect id="bound" x="0" y="0" width="24" height="24" />
+                                                <path d="M10.5,5 L19.5,5 C20.3284271,5 21,5.67157288 21,6.5 C21,7.32842712 20.3284271,8 19.5,8 L10.5,8 C9.67157288,8 9,7.32842712 9,6.5 C9,5.67157288 9.67157288,5 10.5,5 Z M10.5,10 L19.5,10 C20.3284271,10 21,10.6715729 21,11.5 C21,12.3284271 20.3284271,13 19.5,13 L10.5,13 C9.67157288,13 9,12.3284271 9,11.5 C9,10.6715729 9.67157288,10 10.5,10 Z M10.5,15 L19.5,15 C20.3284271,15 21,15.6715729 21,16.5 C21,17.3284271 20.3284271,18 19.5,18 L10.5,18 C9.67157288,18 9,17.3284271 9,16.5 C9,15.6715729 9.67157288,15 10.5,15 Z" id="Combined-Shape" fill="#000000" />
+                                                <path d="M5.5,8 C4.67157288,8 4,7.32842712 4,6.5 C4,5.67157288 4.67157288,5 5.5,5 C6.32842712,5 7,5.67157288 7,6.5 C7,7.32842712 6.32842712,8 5.5,8 Z M5.5,13 C4.67157288,13 4,12.3284271 4,11.5 C4,10.6715729 4.67157288,10 5.5,10 C6.32842712,10 7,10.6715729 7,11.5 C7,12.3284271 6.32842712,13 5.5,13 Z M5.5,18 C4.67157288,18 4,17.3284271 4,16.5 C4,15.6715729 4.67157288,15 5.5,15 C6.32842712,15 7,15.6715729 7,16.5 C7,17.3284271 6.32842712,18 5.5,18 Z" id="Combined-Shape" fill="#000000" opacity="1" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <span class="kt-menu__link-text">COI Statuses</span>
+                                </a>
+                            </li>
+
+                            <li class="kt-menu__item " aria-haspopup="true" onclick="openCOITypeGrid()">
+                                <a class="kt-menu__link ">
+                                    <span class="kt-menu__link-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect id="bound" x="0" y="0" width="24" height="24" />
+                                                <path d="M10.5,5 L19.5,5 C20.3284271,5 21,5.67157288 21,6.5 C21,7.32842712 20.3284271,8 19.5,8 L10.5,8 C9.67157288,8 9,7.32842712 9,6.5 C9,5.67157288 9.67157288,5 10.5,5 Z M10.5,10 L19.5,10 C20.3284271,10 21,10.6715729 21,11.5 C21,12.3284271 20.3284271,13 19.5,13 L10.5,13 C9.67157288,13 9,12.3284271 9,11.5 C9,10.6715729 9.67157288,10 10.5,10 Z M10.5,15 L19.5,15 C20.3284271,15 21,15.6715729 21,16.5 C21,17.3284271 20.3284271,18 19.5,18 L10.5,18 C9.67157288,18 9,17.3284271 9,16.5 C9,15.6715729 9.67157288,15 10.5,15 Z" id="Combined-Shape" fill="#000000" />
+                                                <path d="M5.5,8 C4.67157288,8 4,7.32842712 4,6.5 C4,5.67157288 4.67157288,5 5.5,5 C6.32842712,5 7,5.67157288 7,6.5 C7,7.32842712 6.32842712,8 5.5,8 Z M5.5,13 C4.67157288,13 4,12.3284271 4,11.5 C4,10.6715729 4.67157288,10 5.5,10 C6.32842712,10 7,10.6715729 7,11.5 C7,12.3284271 6.32842712,13 5.5,13 Z M5.5,18 C4.67157288,18 4,17.3284271 4,16.5 C4,15.6715729 4.67157288,15 5.5,15 C6.32842712,15 7,15.6715729 7,16.5 C7,17.3284271 6.32842712,18 5.5,18 Z" id="Combined-Shape" fill="#000000" opacity="1" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <span class="kt-menu__link-text">COI Types</span>
+                                </a>
+                            </li>
+
+                            <li class="kt-menu__item " aria-haspopup="true" onclick="openTemplateTypeGrid()">
+                                <a class="kt-menu__link ">
+                                    <span class="kt-menu__link-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect id="bound" x="0" y="0" width="24" height="24" />
+                                                <path d="M10.5,5 L19.5,5 C20.3284271,5 21,5.67157288 21,6.5 C21,7.32842712 20.3284271,8 19.5,8 L10.5,8 C9.67157288,8 9,7.32842712 9,6.5 C9,5.67157288 9.67157288,5 10.5,5 Z M10.5,10 L19.5,10 C20.3284271,10 21,10.6715729 21,11.5 C21,12.3284271 20.3284271,13 19.5,13 L10.5,13 C9.67157288,13 9,12.3284271 9,11.5 C9,10.6715729 9.67157288,10 10.5,10 Z M10.5,15 L19.5,15 C20.3284271,15 21,15.6715729 21,16.5 C21,17.3284271 20.3284271,18 19.5,18 L10.5,18 C9.67157288,18 9,17.3284271 9,16.5 C9,15.6715729 9.67157288,15 10.5,15 Z" id="Combined-Shape" fill="#000000" />
+                                                <path d="M5.5,8 C4.67157288,8 4,7.32842712 4,6.5 C4,5.67157288 4.67157288,5 5.5,5 C6.32842712,5 7,5.67157288 7,6.5 C7,7.32842712 6.32842712,8 5.5,8 Z M5.5,13 C4.67157288,13 4,12.3284271 4,11.5 C4,10.6715729 4.67157288,10 5.5,10 C6.32842712,10 7,10.6715729 7,11.5 C7,12.3284271 6.32842712,13 5.5,13 Z M5.5,18 C4.67157288,18 4,17.3284271 4,16.5 C4,15.6715729 4.67157288,15 5.5,15 C6.32842712,15 7,15.6715729 7,16.5 C7,17.3284271 6.32842712,18 5.5,18 Z" id="Combined-Shape" fill="#000000" opacity="1" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <span class="kt-menu__link-text">Template Types</span>
+                                </a>
+                            </li>
+
+                            <li class="kt-menu__item " aria-haspopup="true" onclick="openThreatGrid()">
+                                <a class="kt-menu__link ">
+                                    <span class="kt-menu__link-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect id="bound" x="0" y="0" width="24" height="24" />
+                                                <path d="M11.5,5 L18.5,5 C19.3284271,5 20,5.67157288 20,6.5 C20,7.32842712 19.3284271,8 18.5,8 L11.5,8 C10.6715729,8 10,7.32842712 10,6.5 C10,5.67157288 10.6715729,5 11.5,5 Z M5.5,17 L18.5,17 C19.3284271,17 20,17.6715729 20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 C4,17.6715729 4.67157288,17 5.5,17 Z M5.5,11 L18.5,11 C19.3284271,11 20,11.6715729 20,12.5 C20,13.3284271 19.3284271,14 18.5,14 L5.5,14 C4.67157288,14 4,13.3284271 4,12.5 C4,11.6715729 4.67157288,11 5.5,11 Z" id="Combined-Shape" fill="#000000" opacity="1" />
+                                                <path d="M4.82866499,9.40751652 L7.70335558,6.90006821 C7.91145727,6.71855155 7.9330087,6.40270347 7.75149204,6.19460178 C7.73690043,6.17787308 7.72121098,6.16213467 7.70452782,6.14749103 L4.82983723,3.6242308 C4.62230202,3.44206673 4.30638833,3.4626341 4.12422426,3.67016931 C4.04415337,3.76139218 4,3.87862714 4,4.00000654 L4,9.03071508 C4,9.30685745 4.22385763,9.53071508 4.5,9.53071508 C4.62084305,9.53071508 4.73759731,9.48695028 4.82866499,9.40751652 Z" id="Path-10" fill="#000000" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <span class="kt-menu__link-text">Threat Levels</span>
+                                </a>
+                            </li>
+
+                            <li class="kt-menu__item " aria-haspopup="true" onclick="openInfoConLevelGrid()">
+                                <a class="kt-menu__link ">
+                                    <span class="kt-menu__link-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect id="bound" x="0" y="0" width="24" height="24" />
+                                                <path d="M10.5,5 L19.5,5 C20.3284271,5 21,5.67157288 21,6.5 C21,7.32842712 20.3284271,8 19.5,8 L10.5,8 C9.67157288,8 9,7.32842712 9,6.5 C9,5.67157288 9.67157288,5 10.5,5 Z M10.5,10 L19.5,10 C20.3284271,10 21,10.6715729 21,11.5 C21,12.3284271 20.3284271,13 19.5,13 L10.5,13 C9.67157288,13 9,12.3284271 9,11.5 C9,10.6715729 9.67157288,10 10.5,10 Z M10.5,15 L19.5,15 C20.3284271,15 21,15.6715729 21,16.5 C21,17.3284271 20.3284271,18 19.5,18 L10.5,18 C9.67157288,18 9,17.3284271 9,16.5 C9,15.6715729 9.67157288,15 10.5,15 Z" id="Combined-Shape" fill="#000000" />
+                                                <path d="M5.5,8 C4.67157288,8 4,7.32842712 4,6.5 C4,5.67157288 4.67157288,5 5.5,5 C6.32842712,5 7,5.67157288 7,6.5 C7,7.32842712 6.32842712,8 5.5,8 Z M5.5,13 C4.67157288,13 4,12.3284271 4,11.5 C4,10.6715729 4.67157288,10 5.5,10 C6.32842712,10 7,10.6715729 7,11.5 C7,12.3284271 6.32842712,13 5.5,13 Z M5.5,18 C4.67157288,18 4,17.3284271 4,16.5 C4,15.6715729 4.67157288,15 5.5,15 C6.32842712,15 7,15.6715729 7,16.5 C7,17.3284271 6.32842712,18 5.5,18 Z" id="Combined-Shape" fill="#000000" opacity="1" />
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <span class="kt-menu__link-text">Info Confidence Levels</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <!-- begin:: Aside Menu -->
+        </div>
+        <!-- end:: Aside -->
+        <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
+            <!-- begin:: Header -->
+            <div id="kt_header" class="kt-header kt-grid__item  kt-header--fixed ">
+                <!-- begin:: Header Menu -->
+                <button class="kt-header-menu-wrapper-close" id="kt_header_menu_mobile_close_btn"><i class="la la-close"></i></button>
+                <div class="kt-header-menu-wrapper" id="kt_header_menu_wrapper">
+                    <div id="kt_header_menu" class="kt-header-menu kt-header-menu-mobile  kt-header-menu--layout-default ">
+                        <ul class="kt-menu__nav ">
+                            <li class="kt-menu__item kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
+                                <a class="kt-menu__link kt-menu__toggle" id="select" onclick="setActiveOption('select')" title="Select">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect id="bound" x="0" y="0" width="24" height="24" />
+                                            <path d="M14.2330207,14.3666907 L16.3111786,18.8233147 C16.4278814,19.0735846 16.3196038,19.3710749 16.0693338,19.4877777 L14.2567182,20.3330142 C14.0064483,20.449717 13.708958,20.3414394 13.5922552,20.0911694 L11.4668267,15.5331733 L8.85355339,18.1464466 C8.7597852,18.2402148 8.63260824,18.2928932 8.5,18.2928932 C8.22385763,18.2928932 8,18.0690356 8,17.7928932 L8,5.13027585 C8,5.00589283 8.04636089,4.88597544 8.13002996,4.79393946 C8.31578343,4.58961065 8.63200759,4.57455235 8.8363364,4.76030582 L18.1424309,13.2203917 C18.2368163,13.3061967 18.2948385,13.424831 18.3046218,13.5520135 C18.3258009,13.8273425 18.1197718,14.0677099 17.8444428,14.088889 L14.2330207,14.3666907 Z" id="Combined-Shape" fill="#000000" />
+                                        </g>
+                                    </svg>
+                                    @*<i class="fa fa-mouse-pointer" id="select" onclick="setActiveOption('select')" alt="Selection" data-toggle="kt-tooltip" data-placement="bottom" title="Selection"></i>
+                                        <img class="kt-menu__link-text" onclick="setActiveOption('select')" alt="Selection" data-toggle="kt-tooltip" data-placement="bottom" title="Selection" src="~/assets/images/select.png">*@
+                                </a>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
+                                <a class="kt-menu__link kt-menu__toggle" id="pan" onclick="setActiveOption('pan')" title="Panning">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect id="bound" x="0" y="0" width="24" height="24" />
+                                            <path d="M7.03587629,17.2664036 L2.54094808,14.2345363 C1.62521847,13.6168689 1.38359132,12.373805 2.00125875,11.4580753 C2.61892617,10.5423457 3.86199008,10.3007186 4.7777197,10.918386 L7,12.417333 L7,8 C7,4.6862915 9.6862915,2 13,2 C16.3137085,2 19,4.6862915 19,8 L19,17 C19,17.5522847 18.5522847,18 18,18 L8,18 C7.53996718,18 7.15248755,17.6893628 7.03587629,17.2664036 Z" id="Combined-Shape" fill="#000000" />
+                                            <rect id="Rectangle-2" fill="#000000" opacity="1" x="6" y="20" width="14" height="2" rx="1" />
+                                        </g>
+                                    </svg>
+                                    @*<i class="fa fa-hand-paper" id="pan" onclick="setActiveOption('pan')" alt="Panning" data-toggle="kt-tooltip" data-placement="bottom" title="Panning"></i>
+                                        <img class="kt-menu__link-text" onclick="setActiveOption('pan')" alt="Panning" data-toggle="kt-tooltip" data-placement="bottom" title="Panning" src="~/assets/images/pan.png">*@
+                                </a>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
+                                <a class="kt-menu__link kt-menu__toggle" id="zoomin" onclick="setActiveOption('zoomin')" title="ZoomIn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect id="bound" x="0" y="0" width="24" height="24" />
+                                            <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" id="Path-2" fill="#000000" fill-rule="nonzero" opacity="1" />
+                                            <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" id="Path" fill="#000000" fill-rule="nonzero" />
+                                            <path d="M10.5,10.5 L10.5,9.5 C10.5,9.22385763 10.7238576,9 11,9 C11.2761424,9 11.5,9.22385763 11.5,9.5 L11.5,10.5 L12.5,10.5 C12.7761424,10.5 13,10.7238576 13,11 C13,11.2761424 12.7761424,11.5 12.5,11.5 L11.5,11.5 L11.5,12.5 C11.5,12.7761424 11.2761424,13 11,13 C10.7238576,13 10.5,12.7761424 10.5,12.5 L10.5,11.5 L9.5,11.5 C9.22385763,11.5 9,11.2761424 9,11 C9,10.7238576 9.22385763,10.5 9.5,10.5 L10.5,10.5 Z" id="Combined-Shape" fill="#000000" opacity="1" />
+                                        </g>
+                                    </svg>
+                                    @*<i class="fa fa-search-plus" id="zoomin" onclick="setActiveOption('zoomin')" alt="ZoomIn" data-toggle="kt-tooltip" data-placement="bottom" title="Zoom In"></i>*@
+                                    @*<img class="kt-menu__link-text" onclick="setActiveOption('zoomin')" alt="ZoomIn" data-toggle="kt-tooltip" data-placement="bottom" title="Zoom In" src="~/assets/images/zoomin.png">*@
+                                </a>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
+                                <a class="kt-menu__link kt-menu__toggle" id="zoomout" onclick="setActiveOption('zoomout')" title="ZoomOut">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect id="bound" x="0" y="0" width="24" height="24" />
+                                            <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" id="Path-2" fill="#000000" fill-rule="nonzero" opacity="1" />
+                                            <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" id="Path" fill="#000000" fill-rule="nonzero" />
+                                            <rect id="Combined-Shape" fill="#000000" opacity="1" x="9" y="10.5" width="4" height="1" rx="0.5" />
+                                        </g>
+                                    </svg>
+                                    @*<i class="fa fa-search-minus" id="zoomout" onclick="setActiveOption('zoomout')" alt="ZoomOut" data-toggle="kt-tooltip" data-placement="bottom" title="Zoom Out"></i>*@
+                                    @*<img class="kt-menu__link-text" onclick="setActiveOption('zoomout')" alt="ZoomOut" data-toggle="kt-tooltip" data-placement="bottom" title="Zoom Out" src="~/assets/images/zoomout.png">*@
+                                </a>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
+                                <a class="kt-menu__link kt-menu__toggle" id="area" onclick="setActiveOption('area')" title="Measure Area">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect id="bound" x="0" y="0" width="24" height="24" />
+                                            <path d="M8.08113883,20 L15.9188612,20 C16.5645068,20 17.137715,19.5868549 17.3418861,18.9743416 L19.6721428,11.9835717 C19.8694432,11.3916705 19.6797482,10.7394436 19.1957765,10.3456849 L12.9561839,5.26916104 C12.4053757,4.82102426 11.6158052,4.82050247 11.0644052,5.26791085 L4.80622561,10.345825 C4.32117072,10.7394007 4.13079092,11.3923728 4.32832067,11.984962 L6.65811388,18.9743416 C6.86228495,19.5868549 7.43549322,20 8.08113883,20 Z" id="Path-4" fill="#000000" />
+                                        </g>
+                                    </svg>
+                                    @*<i class="fa fa-draw-polygon" id="area" onclick="setActiveOption('area')" alt="MeasureArea" data-toggle="kt-tooltip" data-placement="bottom" title="Measure Area"></i>*@
+                                    @*<img class="kt-menu__link-text" onclick="setActiveOption('area')" alt="MeasureArea" data-toggle="kt-tooltip" data-placement="bottom" title="Measure Area" src="~/assets/images/area.png">*@
+                                </a>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
+                                <a class="kt-menu__link kt-menu__toggle" id="distance" onclick="setActiveOption('distance')" title="Measure Distance">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect id="bound" x="0" y="0" width="24" height="24" />
+                                            <path d="M13,9 L13,6 C9.04563815,7.48814977 6.78867438,8.99350441 5,13 L8,13 C8.7428521,12.2 9.98856336,10 13,9 Z" id="Oval" fill="#000000" fill-rule="nonzero" opacity="1" />
+                                            <circle id="Oval-7" fill="#000000" cx="18" cy="7.5" r="3" />
+                                            <circle id="Oval-7-Copy" fill="#000000" cx="6" cy="18" r="3" />
+                                        </g>
+                                    </svg>
+                                    @*<i class="fa fa-ruler-vertical" id="distance" onclick="setActiveOption('distance')" alt="MeasureDistance" data-toggle="kt-tooltip" data-placement="bottom" title="Measure Distance"></i>*@
+                                    @*<img class="kt-menu__link-text" onclick="setActiveOption('distance')" alt="MeasureDistance" data-toggle="kt-tooltip" data-placement="bottom" title="Measure Distance" src="~/assets/images/distance.png">*@
+                                </a>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
+                                <a class="kt-menu__link kt-menu__toggle" id="draw" onclick="setActiveOption('draw')" title="Drawing">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect id="bound" x="0" y="0" width="24" height="24"></rect>
+                                            <path d="M7.07744993,12.3040451 C7.72444571,13.0716094 8.54044565,13.6920474 9.46808594,14.1079953 L5,23 L4.5,18 L7.07744993,12.3040451 Z M14.5865511,14.2597864 C15.5319561,13.9019016 16.375416,13.3366121 17.0614026,12.6194459 L19.5,18 L19,23 L14.5865511,14.2597864 Z M12,3.55271368e-14 C12.8284271,3.53749572e-14 13.5,0.671572875 13.5,1.5 L13.5,4 L10.5,4 L10.5,1.5 C10.5,0.671572875 11.1715729,3.56793164e-14 12,3.55271368e-14 Z" id="Combined-Shape" fill="#000000" opacity="1"></path>
+                                            <path d="M12,10 C13.1045695,10 14,9.1045695 14,8 C14,6.8954305 13.1045695,6 12,6 C10.8954305,6 10,6.8954305 10,8 C10,9.1045695 10.8954305,10 12,10 Z M12,13 C9.23857625,13 7,10.7614237 7,8 C7,5.23857625 9.23857625,3 12,3 C14.7614237,3 17,5.23857625 17,8 C17,10.7614237 14.7614237,13 12,13 Z" id="Oval-43" fill="#000000" fill-rule="nonzero"></path>
+                                        </g>
+                                    </svg>
+                                    @*<i class="fa fa-drafting-compass" id="draw" onclick="setActiveOption('draw')" alt="Draw" data-toggle="kt-tooltip" data-placement="bottom" title="Draw"></i>*@
+                                    @*<img class="kt-menu__link-text" onclick="setActiveOption('draw')" alt="Draw" data-toggle="kt-tooltip" data-placement="bottom" title="Draw" src="~/assets/images/draw.png">*@
+                                </a>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel">
+                                <a class="kt-menu__link kt-menu__toggle" id="track" onclick="setActiveOption('trackList')" title="TrackList">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect id="bound" x="0" y="0" width="24" height="24" />
+                                            <path d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z" id="Combined-Shape" fill="#000000" />
+                                            <rect id="Rectangle-7-Copy-2" fill="#000000" opacity="1" x="2" y="4" width="5" height="16" rx="1" />
+                                        </g>
+                                    </svg>
+                                    @*<i class="fa fa-list-alt" id="track" onclick="TracksList()" alt="TracksList" data-toggle="kt-tooltip" data-placement="bottom" title="Tracks List"></i>*@
+                                    @*<img class="kt-menu__link-text" onclick="setActiveOption('trackList')" alt="TracksList" data-toggle="kt-tooltip" data-placement="bottom" title="Tracks List" src="~/assets/images/TracksImage.png">*@
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- end:: Header Menu -->
+                <!-- begin:: Header Topbar -->
+                <div class="kt-header__topbar">
+                    <!--begin: SVAS -->
+                    @*<div class="kt-header__topbar-item kt-header__topbar-item--search dropdown p-0" id="kt_quick_search_toggle">
+                            <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
+                                <span class="kt-header__topbar-icon svas-ico">
+                                    <span style="color:#fff;font-weight:600;">SVAS</span>
+                                </span>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-lg">
+                                <div class="kt-quick-search kt-quick-search--dropdown kt-quick-search--result-compact">
+                                    <form class="kt-quick-search__form" onsubmit="return openURLWindow()">
+                                        <div class="input-group">
+                                            <input type="url" name="url" id="url" required class="form-control kt-quick-search__input" placeholder="Please Enter URL..." autocomplete="off">
+                                            <button type="submit" value="Submit" class="btn btn-brand btn-icon">GO!</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>*@
+                    <!--end: SVAS -->
+                    <!--begin: LRIT -->
+                    <div class="kt-header__topbar-item p-0">
+                        <div class="kt-header__topbar-wrapper">
+                            <span class="kt-header__topbar-icon svas-ico" onclick="openPurpleFinder()">
+                                <span style="color:#fff;font-weight:600;font-size:16px;">LRIT</span>
+                            </span>
+                        </div>
+                    </div>
+                    <!--end: LRIT -->
+                    <!--begin: Weather -->
+                    <div class="kt-header__topbar-item kt-header__topbar-item--search dropdown" id="kt_quick_search_toggle">
+                        <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
+                            <span class="kt-header__topbar-icon" onclick="getWeather()">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect id="bound" x="0" y="0" width="24" height="24" />
+                                        <path d="M12,15 C10.3431458,15 9,13.6568542 9,12 C9,10.3431458 10.3431458,9 12,9 C13.6568542,9 15,10.3431458 15,12 C15,13.6568542 13.6568542,15 12,15 Z" id="Oval-8" fill="#000000" fill-rule="nonzero" />
+                                        <path d="M19.5,10.5 L21,10.5 C21.8284271,10.5 22.5,11.1715729 22.5,12 C22.5,12.8284271 21.8284271,13.5 21,13.5 L19.5,13.5 C18.6715729,13.5 18,12.8284271 18,12 C18,11.1715729 18.6715729,10.5 19.5,10.5 Z M16.0606602,5.87132034 L17.1213203,4.81066017 C17.7071068,4.22487373 18.6568542,4.22487373 19.2426407,4.81066017 C19.8284271,5.39644661 19.8284271,6.34619408 19.2426407,6.93198052 L18.1819805,7.99264069 C17.5961941,8.57842712 16.6464466,8.57842712 16.0606602,7.99264069 C15.4748737,7.40685425 15.4748737,6.45710678 16.0606602,5.87132034 Z M16.0606602,18.1819805 C15.4748737,17.5961941 15.4748737,16.6464466 16.0606602,16.0606602 C16.6464466,15.4748737 17.5961941,15.4748737 18.1819805,16.0606602 L19.2426407,17.1213203 C19.8284271,17.7071068 19.8284271,18.6568542 19.2426407,19.2426407 C18.6568542,19.8284271 17.7071068,19.8284271 17.1213203,19.2426407 L16.0606602,18.1819805 Z M3,10.5 L4.5,10.5 C5.32842712,10.5 6,11.1715729 6,12 C6,12.8284271 5.32842712,13.5 4.5,13.5 L3,13.5 C2.17157288,13.5 1.5,12.8284271 1.5,12 C1.5,11.1715729 2.17157288,10.5 3,10.5 Z M12,1.5 C12.8284271,1.5 13.5,2.17157288 13.5,3 L13.5,4.5 C13.5,5.32842712 12.8284271,6 12,6 C11.1715729,6 10.5,5.32842712 10.5,4.5 L10.5,3 C10.5,2.17157288 11.1715729,1.5 12,1.5 Z M12,18 C12.8284271,18 13.5,18.6715729 13.5,19.5 L13.5,21 C13.5,21.8284271 12.8284271,22.5 12,22.5 C11.1715729,22.5 10.5,21.8284271 10.5,21 L10.5,19.5 C10.5,18.6715729 11.1715729,18 12,18 Z M4.81066017,4.81066017 C5.39644661,4.22487373 6.34619408,4.22487373 6.93198052,4.81066017 L7.99264069,5.87132034 C8.57842712,6.45710678 8.57842712,7.40685425 7.99264069,7.99264069 C7.40685425,8.57842712 6.45710678,8.57842712 5.87132034,7.99264069 L4.81066017,6.93198052 C4.22487373,6.34619408 4.22487373,5.39644661 4.81066017,4.81066017 Z M4.81066017,19.2426407 C4.22487373,18.6568542 4.22487373,17.7071068 4.81066017,17.1213203 L5.87132034,16.0606602 C6.45710678,15.4748737 7.40685425,15.4748737 7.99264069,16.0606602 C8.57842712,16.6464466 8.57842712,17.5961941 7.99264069,18.1819805 L6.93198052,19.2426407 C6.34619408,19.8284271 5.39644661,19.8284271 4.81066017,19.2426407 Z" id="Oval" fill="#000000" fill-rule="nonzero" opacity="1" />
+                                    </g>
+                                </svg>
+                            </span>
+                        </div>
+                        <div id="weatherDropdown" class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-lg" style="width:380px">
+                        </div>
+                    </div>
+                    <!--end: Weather -->
+                    <!--begin: Skype -->
+                    <div class="kt-header__topbar-item kt-header__topbar-item--quick-panel pr-0">
+                        <span class="kt-header__topbar-icon" onclick="openMarineTraffic()">
+                            @*<i class="socicon-skype skype-ico"></i>*@
+                            <img style="width:20px;height:20px;" src="~/assets/images/MarineTraffic.png" />
+                        </span>
+                    </div>
+                    <!--end: Skype -->
+                    <!--begin: Skype -->
+                    <div class="kt-header__topbar-item kt-header__topbar-item--quick-panel pr-0">
+                        <span class="kt-header__topbar-icon" onclick="openSkypeWindow()">
+                            <i class="socicon-skype skype-ico"></i>
+                        </span>
+                    </div>
+                    <!--end: Skype -->
+                    <!--begin: Notification panel toggler -->
+                    <div class="kt-header__topbar-item notifications kt-header__topbar-item--quick-panel">
+                        <span class="kt-header__topbar-icon" id="kt_quick_panel_toggler_btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <path d="M17,12 L18.5,12 C19.3284271,12 20,12.6715729 20,13.5 C20,14.3284271 19.3284271,15 18.5,15 L5.5,15 C4.67157288,15 4,14.3284271 4,13.5 C4,12.6715729 4.67157288,12 5.5,12 L7,12 L7.5582739,6.97553494 C7.80974924,4.71225688 9.72279394,3 12,3 C14.2772061,3 16.1902508,4.71225688 16.4417261,6.97553494 L17,12 Z" id="Combined-Shape" fill="#000000" />
+                                    <rect id="Rectangle-23" fill="#ffffff" opacity="1" x="10" y="16" width="4" height="4" rx="2" />
+                                </g>
+                            </svg>
+                        </span>
+                        <span class="kt-badge kt-badge--brand" id="noti_badge"></span>
+                    </div>
+                    <!--end: Notification panel toggler -->
+                    <!--begin: User Bar -->
+                    <div class="kt-header__topbar-item kt-header__topbar-item--user">
+                        <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="0px,0px">
+                            <div class="kt-header__topbar-user">
+                                <span class="kt-header__topbar-welcome kt-hidden-mobile">Hi,</span>
+                                <span class="kt-header__topbar-username kt-hidden-mobile">@User.Identity.Name</span>
+                                <img class="kt-hidden" alt="Pic" src="~/Matronic/assets/media/users/300_25.jpg" />
+                                <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
+                                <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold">@(User.Identity.Name.ToUpper().ToCharArray().ElementAt(0))</span>
+                            </div>
+                        </div>
+
+                        <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl">
+                            <!--begin: Head -->
+                            <div class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x" style="background-image: url('@Url.Content("~/Matronic/assets/media/misc/bg-1.jpg")')">
+                                <div class="kt-user-card__avatar">
+                                    <img class="kt-hidden" alt="Pic" src="~/Matronic/assets/media/users/300_25.jpg" />
+                                    <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
+                                    <span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">@(User.Identity.Name.ToUpper().ToCharArray().ElementAt(0))</span>
+                                </div>
+                                <div class="kt-user-card__name">
+                                    @User.Identity.Name
+                                </div>
+                            </div>
+                            <!--end: Head -->
+                            <!--begin: Navigation -->
+                            <div class="kt-notification">
+                                <div class="kt-notification__custom kt-space-between">
+                                    <partial name="_SignoutPartial" />
+                                </div>
+                            </div>
+                            <!--end: Navigation -->
+                        </div>
+                    </div>
+                    <!--end: User Bar -->
+                </div>
+                <!-- end:: Header Topbar -->
+            </div>
+            <!-- end:: Header -->
+            <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+                <!-- begin:: News -->
+                <div class="kt-subheader kt-grid__item" id="kt_subheader">
+                    <div class="kt-container kt-container--fluid news">
+                        <div class="caption">
+                            Maritime News
+                        </div>
+                        <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+                            <ul id="maritimeNews">
+                            </ul>
+                        </marquee>
+                    </div>
+                </div>
+                <!-- end:: News -->
+                <!-- begin:: Content -->
+                <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+                    <div id="map" class="map" tabindex="0"></div>
+                </div>
+                <div style="position:absolute;">
+                    <div id="hoverpopup" class="ol-popup">
+                        <div id="hoverpopup-content"></div>
+                    </div>
+                    <div id="clickpopup" class="ol-popup ol-popupClick">
+                        <a id="clickpopup-closer" class="ol-popup-closer ol-popupClick-closer"></a>
+                        <div id="clickpopup-content"></div>
+                    </div>
+                    <div id="searchpopup" class="ol-popup">
+                        <a id="searchpopup-closer" class="ol-popup-closer"></a>
+                        <div id="searchpopup-content"></div>
+                    </div>
+                </div>
+                <!-- end:: Content -->
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end:: Page -->
+<!-- begin::Notification Panel -->
+<div id="kt_quick_panel" class="kt-quick-panel">
+    <a href="#" class="kt-quick-panel__close" id="kt_quick_panel_close_btn"><i class="flaticon2-delete"></i></a>
+
+    <div class="kt-quick-panel__nav">
+        <ul class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-brand  kt-notification-item-padding-x" role="tablist">
+            <li class="nav-item active">
+                <a class="nav-link active" data-toggle="tab" href="#kt_quick_panel_tab_notifications" role="tab">Notifications</a>
+            </li>
+        </ul>
+    </div>
+    <div class="kt-quick-panel__content">
+        <div class="tab-content">
+            <div class="tab-pane fade show kt-scroll active" id="kt_quick_panel_tab_notifications" role="tabpanel">
+                <div id="noti" class="kt-notification">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end::Notification Panel -->
+
+<input id="loggedInSubsId" type="hidden" value="@Model.CurrentSubscriber.SubscriberId" />
+<input id="loggedInSubsCode" type="hidden" value="@Model.CurrentSubscriber.SubscriberCode" />
+<div id="modal-placeholder"></div>
+
+<partial name="TracksList" />
+<partial name="PRList" />
+<partial name="COIList" />
+<partial name="SRList" />
+<partial name="ARList" />
+<partial name="AARList" />
+<partial name="LostContactInfoList" />
+<partial name="DropContactInfoList" />
+<partial name="TemplateList" />
+
+<partial name="StakeholderList" />
+<partial name="UserList" />
+<partial name="UserTypeList" />
+<partial name="NewsFeedTypeList" />
+<partial name="COITypeList" />
+<partial name="COIStatusesList" />
+<partial name="ThreatLevelList" />
+<partial name="InfoConLevelList" />
+<partial name="TemplateTypeList" />
+<partial name="IncidentList" />
+<partial name="NotesList" />
+<partial name="SOSList" />
+
+<!--SweetAlert for Delete-->
+<div class="modal fade dragModal swal2-popup" id="sweetAlert" role="dialog" aria-hidden="true">
+    <div class="drag-modal-dialog modal-dialog modal-dialog-form modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <input id="Id" type="hidden" />
+                <input id="datatableName" type="hidden" />
+                <div class="swal2-header">
+                    <ul class="swal2-progress-steps" style="display: none;">
+                    </ul>
+                    <div class="swal2-icon swal2-error" style="display: none;">
+                        <span class="swal2-x-mark">
+                            <span class="swal2-x-mark-line-left"></span>
+                            <span class="swal2-x-mark-line-right"></span>
+                        </span>
+                    </div>
+                    <div class="swal2-icon swal2-question" style="display: none;"></div>
+                    <div class="swal2-icon swal2-warning swal2-animate-warning-icon" style="display: flex;"></div>
+                    <div class="swal2-icon swal2-info" style="display: none;"></div>
+                    <div class="swal2-icon swal2-success" style="display: none;">
+                        <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+                        <span class="swal2-success-line-tip"></span>
+                        <span class="swal2-success-line-long"></span>
+                        <div class="swal2-success-ring"></div>
+                        <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+                        <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+                    </div>
+                    <img class="swal2-image" style="display: none;">
+                    <h2 class="swal2-title" id="swal2-title" style="display: flex;">Are you sure?</h2>
+                    <button type="button" class="swal2-close" aria-label="Close this dialog" style="display: none;">×</button>
+                </div>
+                <div class="swal2-content">
+                    <div id="swal2-content" style="display: block;">You won't be able to revert this!</div>
+                    <input class="swal2-input" style="display: none;">
+                    <input type="file" class="swal2-file" style="display: none;">
+                    <div class="swal2-range" style="display: none;"><input type="range"><output></output></div>
+                    <select class="swal2-select" style="display: none;"></select>
+                    <div class="swal2-radio" style="display: none;"></div>
+                    <label for="swal2-checkbox" class="swal2-checkbox" style="display: none;">
+                        <input type="checkbox">
+                        <span class="swal2-label"></span>
+                    </label>
+                    <textarea class="swal2-textarea" style="display: none;"></textarea>
+                    <div class="swal2-validation-message" id="swal2-validation-message"></div>
+                </div>
+                <div class="swal2-actions">
+                    <button type="button" onclick="deleteRecord($('#Id').val(), true, $('#datatableName').val());" class="swal2-confirm swal2-styled" aria-label="" style="display: inline-block; border-left-color: rgb(48, 133, 214); border-right-color: rgb(48, 133, 214);">Yes, delete it!</button>
+                    <button type="button" class="swal2-cancel swal2-styled" aria-label="" style="display: inline-block;" data-dismiss="modal">Cancel</button>
+                </div>
+                <div class="swal2-footer" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--SweetAlert for Delete-->
+<!--SweetAlert for Grid Messages-->
+<div class="modal fade dragModal swal2-popup" id="sweetAlertGridMessages" role="dialog" aria-hidden="true">
+    <div class="drag-modal-dialog modal-dialog modal-dialog-form modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="swal2-header">
+                    <ul class="swal2-progress-steps" style="display: none;"></ul>
+                    <div class="swal2-icon swal2-error" style="display: none;">
+                        <span class="swal2-x-mark">
+                            <span class="swal2-x-mark-line-left"></span>
+                            <span class="swal2-x-mark-line-right"></span>
+                        </span>
+                    </div>
+                    <div class="swal2-icon swal2-question" style="display: none;"></div>
+                    <div class="swal2-icon swal2-warning" style="display: none;"></div>
+                    <div class="swal2-icon swal2-info swal2-animate-info-icon" style="display: flex;"></div>
+                    <div class="swal2-icon swal2-success" style="display: none;">
+                        <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+                        <span class="swal2-success-line-tip"></span>
+                        <span class="swal2-success-line-long"></span>
+                        <div class="swal2-success-ring"></div>
+                        <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+                        <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+                    </div>
+                    <img class="swal2-image" style="display: none;">
+                    <h2 class="swal2-title" id="swal2-title" style="display: flex;">Alert!</h2>
+                    <button type="button" class="swal2-close" aria-label="Close this dialog" style="display: none;">×</button>
+                </div>
+                <div class="swal2-content">
+                    <div id="swal2-content" style="display: block;">You clicked the button!</div>
+                    <input class="swal2-input" style="display: none;">
+                    <input type="file" class="swal2-file" style="display: none;">
+                    <div class="swal2-range" style="display: none;"><input type="range"><output></output></div>
+                    <select class="swal2-select" style="display: none;"></select>
+                    <div class="swal2-radio" style="display: none;"></div>
+                    <label for="swal2-checkbox" class="swal2-checkbox" style="display: none;">
+                        <input type="checkbox"><span class="swal2-label"></span>
+                    </label>
+                    <textarea class="swal2-textarea" style="display: none;"></textarea>
+                    <div class="swal2-validation-message" id="swal2-validation-message"></div>
+                </div>
+                <div class="swal2-actions">
+                    <button type="button" class="swal2-confirm swal2-styled" data-dismiss="modal" aria-label="" style="display: inline-block; border-left-color: rgb(48, 133, 214); border-right-color: rgb(48, 133, 214);">OK</button>
+                    <button type="button" class="swal2-cancel swal2-styled" aria-label="" style="display: none;">Cancel</button>
+                </div>
+                <div class="swal2-footer" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--SweetAlert for Grid Messages-->

@@ -1,0 +1,58 @@
+﻿@model MTC.JMICS.Models.DB.COIStatus
+
+<div class="modal fade dragModal" id="EditCOIStatusModal" role="dialog" aria-labelledby="COIStatusModalLabel" aria-hidden="true">
+    <div class="drag-modal-dialog modal-dialog-form modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header drag-modal-header">
+                <h5 class="modal-title" id="COIStatusModalLabel">COI Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body modal-body-custom">
+                <form method="post" id="frmEditCOIStatus">
+                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                    <input type="hidden" asp-for="COIStatusId" />
+                    <input type="hidden" asp-for="CreatedOn" />
+                    <input type="hidden" asp-for="CreatedBy" />
+                    <input type="hidden" asp-for="LastModifiedOn" />
+                    <input type="hidden" asp-for="LastModifiedBy" />
+                    <div class="kt-scroll kt-scroll-custom" data-scroll="true" data-height="auto">
+                        <div class="form-group row">
+                            <div class="col">
+                                <label for="COIStatusName">COI Type Name:</label>
+                                <input type="text" asp-for="COIstatus" class="form-control" id="COIStatusName" placeholder="COI Status Name">
+                                <span asp-validation-for="COIstatus" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+<script>
+    $("#frmEditCOIStatus").submit(function (event) {
+        let formData = new FormData(this);
+        fetch('Canvas?handler=COIStatus', {
+            method: 'post',
+            body: new URLSearchParams(formData),
+            headers: {
+                RequestVerificationToken:
+                    $('input:hidden[name="__RequestVerificationToken"]').val()
+            }
+        }).then(function (response) {
+            if (response.status === 200) {
+                $('#EditCOIStatusModal').modal('hide');
+            }
+        });
+        return false;
+        event.preventDefault();
+    });
+</script>

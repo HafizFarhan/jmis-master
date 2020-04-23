@@ -1,0 +1,44 @@
+﻿<div id="DropContactGridModal" class="modal fade dragModal" role="dialog" aria-hidden="true">
+    <div class="drag-modal-dialog modal-dialog-grid modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content" style="min-height: 590px;">
+            <div class="modal-header drag-modal-header">
+                <h5 class="modal-title">
+                    Drop Info Sharing Reports
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!--begin: Search Form -->
+                <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
+                    <div class="row align-items-center">
+                        <div class="col-xl-8 order-2 order-xl-1">
+                            <div class="row align-items-center">
+                                <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                                    <div class="kt-input-icon kt-input-icon--left">
+                                        <input type="text" class="form-control" placeholder="Search..." id="generalSearch">
+                                        <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                                            <span><i class="la la-search"></i></span>
+                                        </span>
+                                    </div>
+                                </div>                               
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--end: Search Form -->
+            </div>
+            <div class="modal-body modal-body-fit">
+                <!--begin: Datatable -->
+                <div id="modal_datatable_dropReports"></div>
+                <!--end: Datatable -->
+            </div>
+            <div class="modal-footer kt-hidden">
+                <button type="button" class="btn btn-clean btn-bold btn-upper btn-font-md" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default btn-bold btn-upper btn-font-md">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>

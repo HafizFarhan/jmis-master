@@ -1,0 +1,102 @@
+﻿@model MTC.JMICS.Models.DB.Template
+
+<div class="modal fade dragModal" id="TemplateModal" role="dialog" aria-labelledby="TemplateModalLabel" aria-hidden="true">
+    <div class="drag-modal-dialog modal-dialog-form modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header drag-modal-header">
+                <h5 class="modal-title" id="TemplateModalLabel">Template Form</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body modal-body-custom">
+                <form method="post" id="frmTemplate">
+                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                    <input id="hdnSubscriberId" type="hidden" asp-for="SubscriberId" />
+                    <input id="hdnTemplateType" type="hidden" value="@Model.TemplateTypeId" />
+                    <input id="hdnActionAddresse" type="hidden" value="@Model.AddressedTo" />
+                    <div class="kt-scroll kt-scroll-custom" data-scroll="true" data-height="auto">
+
+                        <div class="form-group row">
+                            <div class="col-lg-6">
+                                <label>Initiator:</label>
+                                <select id="drpSubsList" class="form-control" asp-for="SubscriberId" disabled></select>
+                            </div>
+                            <div class="col-lg-6">
+                                <label>Observation Date:</label>
+                                <input asp-for="ReportingDatetime" type="date" class="form-control" placeholder="Select date" />
+                                <span asp-validation-for="ReportingDatetime" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            @*<div class="col-lg-6">
+                    <label for="created-by" class="col-form-label">Created By:</label>
+                    <select id="drpSubsList" class="form-control" asp-for="SubscriberId" disabled></select>
+                </div>*@
+
+                            <div class="col-lg-6">
+                                <label for="addressed-to" class="col-form-label">Addressed To:</label>
+                                <select id="drpMultiAct" class="form-control" asp-for="AddressedToArray" multiple="multiple"></select>
+                                <span asp-validation-for="AddressedToArray" class="text-danger"></span>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="news-type" class="col-form-label">Template Type:</label>
+                                <select id="drpTemplateTypeList" class="form-control" asp-for="TemplateTypeId"></select>
+                                <span asp-validation-for="TemplateTypeId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        @*<div class="multiselect form-group col-lg-12 p-0">
+                <label for="reported-to" class="col-form-label">To:</label>
+                <div class="col-lg-12 p-0">
+                    <select id="drpMultiAct" class="form-control" asp-for="AddressedTo" multiple="multiple"></select>
+                    <span asp-validation-for="AddressedTo" class="text-danger"></span>
+                </div>
+            </div>*@
+                        <div class="form-group row">
+                            <div class="col-lg-12">
+                                <label>Remarks:</label>
+                                <textarea asp-for="Remarks" class="form-control"></textarea>
+                                <span asp-validation-for="Remarks" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--begin::Page Scripts(used by this page) -->
+<script src="~/Matronic/assets/js/demo1/pages/crud/forms/widgets/select2.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<!--end::Page Scripts -->
+
+<script>
+    $("#frmTemplate").submit(function (event) {
+        let formData = new FormData(this);
+        fetch('Canvas?handler=Template', {
+            method: 'post',
+            body: new URLSearchParams(formData),
+            headers: {
+                RequestVerificationToken:
+                    $('input:hidden[name="__RequestVerificationToken"]').val()
+            }
+        }).then(function (response) {
+            if (response.status === 200) {
+                $('#TemplateModal').modal('hide');
+            }
+            if (response.status === 400) {
+                $("#vldSpanSourceUrl").text("Provide valid source url");
+                return;
+            }
+            });
+        return false;
+        event.preventDefault();
+    });
+</script>

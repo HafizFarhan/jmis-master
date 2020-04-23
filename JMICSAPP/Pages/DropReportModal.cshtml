@@ -1,0 +1,102 @@
+﻿@model MTC.JMICS.Models.DB.DropInfoSharingReport
+
+<div class="modal fade dragModal" id="DropReportModal" role="dialog" aria-labelledby="DropReportModalLabel" aria-hidden="true">
+    <div class="drag-modal-dialog modal-dialog-form modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header drag-modal-header">
+                <h5 class="modal-title" id="DropReportModalLabel">Drop Report</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body modal-body-custom">
+                <form method="post" id="frmDropReport">
+                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                    <input id="hdnSubscriberId" type="hidden" value="@Model.SubscriberId" />
+                    <input id="hdnActionAddresse" type="hidden" value="@Model.ActionAddressee" />
+                    <input type="hidden" asp-for="PRId" />
+                    <input type="hidden" asp-for="COIId" />
+                    <input id="hdnCOIStatus" type="hidden" value="@Model.COIStatusId" />
+                    <div class="kt-scroll kt-scroll-custom" data-scroll="true" data-height="auto">
+                        <div class="form-group row">
+                            <div class="col-lg-6">
+                                <label>Initiator:</label>
+                                <select id="drpSubsList" class="form-control" asp-for="SubscriberId" disabled></select>
+                            </div>
+                            <div class="multiselect col-lg-6">
+                                <label>Action Addressee:</label>
+                                <div class="col-lg-12 p-0">
+                                    <select id="drpMultiAct" class="form-control" asp-for="ActionAddresseeArray" multiple="multiple" disabled></select>
+                                    <span asp-validation-for="ActionAddresseeArray" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="multiselect col-lg-12">
+                                <label>Present COI Status:</label>
+                                <div class="col-lg-12 p-0">
+                                    <select id="coiStatus" class="form-control" asp-for="COIStatusId"></select>
+                                    <span asp-validation-for="COIStatusId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-6">
+                                <label>Latitude:</label>
+                                <input asp-for="Latitude" type="text" class="form-control" id="lat">
+                                <span asp-validation-for="Latitude" class="text-danger"></span>
+                            </div>
+                            <div class="col-lg-6">
+                                <label>Longitude:</label>
+                                <input asp-for="Longitude" type="text" class="form-control" id="lon">
+                                <span asp-validation-for="Longitude" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-12">
+                                <label>Remarks:</label>
+                                <textarea asp-for="Remarks" class="form-control"></textarea>
+                                <span asp-validation-for="Remarks" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Generate</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--begin::Page Scripts(used by this page) -->
+<script src="~/Matronic/assets/js/demo1/scripts.bundle.js" type="text/javascript"></script>
+<script src="~/Matronic/assets/js/demo1/pages/crud/forms/widgets/select2.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<!--end::Page Scripts -->
+
+<script>
+    $("#frmDropReport").submit(function (event) {
+        enableInputs();
+        let formData = new FormData(this);
+        fetch('Canvas?handler=DR', {
+            method: 'post',
+            body: new URLSearchParams(formData),
+            headers: {
+                RequestVerificationToken:
+                    $('input:hidden[name="__RequestVerificationToken"]').val()
+            }
+        }).then(function (response) {
+            if (response.status == 200) {
+                $('.modal').modal('hide');
+            }
+        });
+        disableInputs();
+        return false;
+        event.preventDefault();
+    });
+</script>
