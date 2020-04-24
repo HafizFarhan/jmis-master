@@ -377,7 +377,7 @@ namespace MTC.JMICS.Utility.Utils
             string[] numberParts = Number.Split('-');
             if (numberParts.Length > 2)
             {
-                numberParts[3] = Convert.ToString(Convert.ToInt64(numberParts[3]) + 1);
+                numberParts[2] = Convert.ToString(Convert.ToInt64(numberParts[2]) + 1);
                 return string.Join('-', numberParts);
             }
             else
